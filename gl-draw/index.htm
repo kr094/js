@@ -1,0 +1,35 @@
+<html>
+<head>
+<script type='application/javascript' src='../common/domready.js' ></script>
+<script type='application/javascript' >
+DomReady.ready(function()
+{
+	initCanvas.call(initCanvas, document.getElementById('canvas'));
+});
+
+function initCanvas(canvas)
+{
+	var ctx = canvas.getContext('2d');
+	var width = 500;
+	var height = 200;
+	
+	var player = {};
+	player.width = 25;
+	player.height = 25;
+	player.x = width / 2;
+	player.y = height - player.height;
+	
+	canvas.width = width;
+	canvas.height = height;
+	
+	ctx.fillStyle = 'red';
+	ctx.fillRect(player.x, player.y, player.height, player.width);
+}
+</script>
+
+<body>
+
+<canvas id='canvas' ></canvas>
+
+</body>
+</html>

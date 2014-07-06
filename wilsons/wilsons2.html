@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+	body 
+	{
+	  background: #000;
+	}
+</style>
+<script type='application/javascript' src='../common/domready.js' ></script>
+<script type='application/javascript' >
+DomReady.ready(function() {
+_start();
+});
+</script>
+<script type='application/javascript' >
+function Maze(canvas, width, height){}
+
+Maze.prototype = (
+function (canvas, width, height) {
+	this.canvas = canvas;
+	var _getCanvas = function ()
+	{
+		return this.canvas;
+	}
+	
+	return 
+	{
+		constructor = Maze;
+	};
+}
+)();
+
+console.log(new Maze(null, 1, 1).getCanvas());
+
+
+function Canvas(canvas)
+{
+	if(canvas != null)
+	{
+		this.setCanvas(canvas);
+	}
+	else
+	{
+		this.canvas = null;
+		this.context = null;
+	}
+}
+
+Canvas.prototype.setCanvas = function (canvas)
+{
+	this.canvas = canvas;
+	this.context = this.getCanvas().getContext('2d');
+}
+
+Canvas.prototype.getCanvas = function ()
+{
+	return this.canvas;
+}
+
+Canvas.prototype.getContext = function ()
+{
+	return this.context;
+}
+
+function _start()
+{
+	var width = 1200,
+		height = 960;
+		
+	var cellSize = 4,
+		cellSpacing = 4,
+		cellWidth = Math.floor((width - cellSpacing) / (cellSize + cellSpacing)),
+		cellHeight = Math.floor((height - cellSpacing) / (cellSize + cellSpacing));
+	
+	var cells = new Array(width * height),
+		remaining = new Array(width * height),
+		previous = new Array(width * height);
+		
+	var canvas = document.getElementById('canvas'),
+		context = canvas.getContext('2d');
+	
+	canvas.setAttribute('width', width),
+	canvas.setAttribute('height', height);
+	
+	var canvasObj = new Canvas(canvas);
+	console.log(canvasObj.getContext());
+		
+	context.translate(
+		Math.round((width - cellWidth * cellSize - (cellWidth + 1) * cellSpacing) / 2),
+		Math.round((height - cellHeight * cellSize - (cellHeight + 1) * cellSpacing) / 2)
+	);
+	
+    context.fillStyle = "#fff";
+	context.rect(0, 0, width, height);
+	context.fill();
+}
+
+function drawGrid(context, cells, width, height)
+{
+	var i = 0,
+	length = width * height;
+	
+	context.fillStyle='#000';
+	for(i; i < length; i++)
+	{
+		var x = i % width,
+			y = i % height;
+		context.fillRect(x, x, 4, 4);
+	}
+}
+</script>
+</head>
+<body>
+<canvas id='canvas'></canvas>
+</body>
+</html>
